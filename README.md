@@ -34,7 +34,7 @@ A fun React Native game where players aim to guess a randomly generated number i
 - **Expo Libraries**:
   - `expo-linear-gradient`: For creating gradient backgrounds.
   - `expo-font`: For custom font integration.
-  - `expo-app-loading`: Ensures smooth app loading.
+  - `expo-splash-screen`: Ensures smooth app loading.
   - `expo/vector-icons`: For clean and intuitive icons.
 
 ## Screens
