@@ -7,7 +7,7 @@ A fun React Native game where players aim to guess a randomly generated number i
 - 🎨 **Beautiful UI**: Integrated with `LinearGradient` for stunning gradient backgrounds.
 - 🕹️ **Interactive Gameplay**: Tracks rounds and displays the result dynamically.
 - 🎭 **Custom Fonts**: Enhanced typography using `expo-font`.
-- 🚀 **Smooth Loading**: Seamless splash screen using `expo-app-loading`.
+- 🚀 **Smooth Loading**: Seamless splash screen using `expo-splash-screen`.
 - 📱 **Icons**: Leveraged `expo/vector-icons` for buttons and UI components.
 
 ## Installation
