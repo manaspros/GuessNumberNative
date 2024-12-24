@@ -14,7 +14,7 @@ A fun React Native game where players aim to guess a randomly generated number i
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-username>/guess-the-number-game.git
+   git clone https://github.com/manaspros/GuessNumberNative.git
    cd guess-the-number-game
    ```
 
