@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Nicolas Gallagher.
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8,27 +8,35 @@
  * @noflow
  */
 
-import { canUseDOM } from 'fbjs/lib/ExecutionEnvironment';
-import findIndex from 'array-find-index';
+'use client';
+
 import invariant from 'fbjs/lib/invariant';
+import EventEmitter from '../../vendor/react-native/vendor/emitter/EventEmitter';
+import canUseDOM from '../../modules/canUseDom';
 
 // Android 4.4 browser
 const isPrefixed =
-  canUseDOM && !document.hasOwnProperty('hidden') && document.hasOwnProperty('webkitHidden');
+  canUseDOM &&
+  !document.hasOwnProperty('hidden') &&
+  document.hasOwnProperty('webkitHidden');
 
 const EVENT_TYPES = ['change', 'memoryWarning'];
-const VISIBILITY_CHANGE_EVENT = isPrefixed ? 'webkitvisibilitychange' : 'visibilitychange';
-const VISIBILITY_STATE_PROPERTY = isPrefixed ? 'webkitVisibilityState' : 'visibilityState';
+const VISIBILITY_CHANGE_EVENT = isPrefixed
+  ? 'webkitvisibilitychange'
+  : 'visibilitychange';
+const VISIBILITY_STATE_PROPERTY = isPrefixed
+  ? 'webkitVisibilityState'
+  : 'visibilityState';
 
 const AppStates = {
   BACKGROUND: 'background',
   ACTIVE: 'active'
 };
 
-const listeners = [];
+let changeEmitter = null;
 
 export default class AppState {
-  static isAvailable = canUseDOM && document[VISIBILITY_STATE_PROPERTY];
+  static isAvailable = canUseDOM && !!document[VISIBILITY_STATE_PROPERTY];
 
   static get currentState() {
     if (!AppState.isAvailable) {
@@ -53,29 +61,20 @@ export default class AppState {
         type
       );
       if (type === 'change') {
-        const callback = () => handler(AppState.currentState);
-        listeners.push([handler, callback]);
-        document.addEventListener(VISIBILITY_CHANGE_EVENT, callback, false);
-      }
-    }
-  }
+        if (!changeEmitter) {
+          changeEmitter = new EventEmitter();
 
-  static removeEventListener(type: string, handler: Function) {
-    if (AppState.isAvailable) {
-      invariant(
-        EVENT_TYPES.indexOf(type) !== -1,
-        'Trying to remove listener for unknown event: "%s"',
-        type
-      );
-      if (type === 'change') {
-        const listenerIndex = findIndex(listeners, (pair) => pair[0] === handler);
-        invariant(
-          listenerIndex !== -1,
-          'Trying to remove AppState listener for unregistered handler'
-        );
-        const callback = listeners[listenerIndex][1];
-        document.removeEventListener(VISIBILITY_CHANGE_EVENT, callback, false);
-        listeners.splice(listenerIndex, 1);
+          document.addEventListener(
+            VISIBILITY_CHANGE_EVENT,
+            () => {
+              if (changeEmitter) {
+                changeEmitter.emit('change', AppState.currentState);
+              }
+            },
+            false
+          );
+        }
+        return changeEmitter.addListener(type, handler);
       }
     }
   }

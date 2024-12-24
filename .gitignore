@@ -65,7 +65,7 @@ build/
 *.key
 *.mobileprovision
 *.jks
-node_modules
-android
-.vscode
-.expo
+/android
+/ios
+/.vscode
+/.expo

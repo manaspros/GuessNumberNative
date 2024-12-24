@@ -1,5 +1,5 @@
 {
-  "name": "rncourse",
+  "name": "game",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start --dev-client",
@@ -13,14 +13,16 @@
     "expo-app-loading": "^2.1.1",
     "expo-font": "~13.0.2",
     "expo-linear-gradient": "~14.0.1",
-    "expo-status-bar": "~1.2.0",
+    "expo-splash-screen": "^0.29.18",
+    "expo-status-bar": "~2.0.0",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
     "react-native": "0.76.5",
-    "react-native-web": "0.17.1"
+    "react-native-web": "~0.19.13"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@react-native-community/cli": "^15.0.0"
   },
   "private": true
 }

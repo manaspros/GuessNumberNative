@@ -1,6 +1,6 @@
 /**
  * Copyright (c) Nicolas Gallagher.
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8,13 +8,13 @@
  * @flow
  */
 
+'use client';
+
 import type { ViewProps } from '../View';
 
 import * as React from 'react';
 import StyleSheet from '../StyleSheet';
 import View from '../View';
-
-const accessibilityValue = { max: 1, min: 0 };
 
 const createSvgCircle = (style) => (
   <circle cx="16" cy="16" fill="none" r="14" strokeWidth="4" style={style} />
@@ -58,15 +58,18 @@ const ActivityIndicator: React.AbstractComponent<
   return (
     <View
       {...other}
-      accessibilityRole="progressbar"
-      accessibilityValue={accessibilityValue}
+      aria-valuemax={1}
+      aria-valuemin={0}
       ref={forwardedRef}
+      role="progressbar"
       style={[styles.container, style]}
     >
       <View
         children={svg}
         style={[
-          typeof size === 'number' ? { height: size, width: size } : indicatorSizes[size],
+          typeof size === 'number'
+            ? { height: size, width: size }
+            : indicatorSizes[size],
           styles.animation,
           !animating && styles.animationPause,
           !animating && hidesWhenStopped && styles.hidesWhenStopped
@@ -90,8 +93,8 @@ const styles = StyleSheet.create({
     animationDuration: '0.75s',
     animationKeyframes: [
       {
-        '0%': { transform: [{ rotate: '0deg' }] },
-        '100%': { transform: [{ rotate: '360deg' }] }
+        '0%': { transform: 'rotate(0deg)' },
+        '100%': { transform: 'rotate(360deg)' }
       }
     ],
     animationTimingFunction: 'linear',

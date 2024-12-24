@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RNCourse",
-    "slug": "RNCourse",
+    "name": "Game",
+    "slug": "Game",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -32,6 +32,11 @@
     "newArchEnabled": true,
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b8c5638b-55a6-426a-ad35-5edec880676f"
+      }
+    }
   }
 }
