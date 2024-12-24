@@ -65,6 +65,7 @@ build/
 *.key
 *.mobileprovision
 *.jks
+
 /android
 /ios
 /.vscode
